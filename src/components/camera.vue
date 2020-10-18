@@ -24,7 +24,8 @@ import {saveUserInfo} from "../axios/axios-api";
 export default {
   data () {
     return {
-      img : ""
+      img : "",
+      has_face:""
     }
   },
   methods: {
@@ -78,7 +79,30 @@ export default {
         sex : sex,
         img : this.img
       }
-      saveUserInfo(param)
+
+      let res = saveUserInfo(param)
+      res
+        .then(res => {
+          this.has_face = res.result.has_face
+          console.log(this.has_face)
+          if(this.has_face===true)
+          {
+            this.$message({
+              message: "Successful",
+              type: 'success',
+              offset: 300,
+            })
+          }
+
+          else {
+            this.$message({
+              message: "Cannot recognize your face",
+              type: 'error',
+              offset: 300,
+            })
+          }
+
+        })
 
     }
   },
