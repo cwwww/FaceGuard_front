@@ -6,8 +6,8 @@
         <h1 class="photo">Photo Registration</h1>
       </div>
       <div class="input_wrap">
-        <video ref="video" width="300" height="180" autoplay style="margin-top:10px"></video>
-        <canvas ref="canvas" width="300" height="180"></canvas>
+        <video ref="video" width="300" height="240" autoplay style="margin-top:10px"></video>
+        <canvas ref="canvas" width="300" height="240"></canvas>
       </div>
     </div>
 
@@ -34,7 +34,7 @@ export default {
     photograph () {
       let ctx = this.$refs['canvas'].getContext('2d')
       // 把当前视频帧内容渲染到canvas上
-      ctx.drawImage(this.$refs['video'], 0, 0, 370,277 )
+      ctx.drawImage(this.$refs['video'], 0, 0, 300,224 )
       // 转base64格式、图片格式转换、图片质量压缩
       let imgBase64 = this.$refs['canvas'].toDataURL('image/jpeg', 1)
 
@@ -89,11 +89,11 @@ export default {
           console.log(this.has_face)
           if(this.has_face===true)
           {
-            this.$message({
-              message: "Successful",
-              type: 'success',
-              offset: 300,
-            })
+            this.$router.push(
+              {
+                name:"success"
+              }
+            )
           }
 
           else {
