@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="selection_header">
+      <h1 style="color:#f7f7fd; font-size:28px;margin-top:50px;margin-left:30px">Basic Infomation</h1>
     </div>
     <div class="input_wrap">
       <div>
         <form id="info_form">
-
           <table>
             <tr>
               <td><span style="width: 100px;font-size: 20px;height: 50px"> Name*</span></td>
