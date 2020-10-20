@@ -47,6 +47,8 @@
 
 
 <script>
+import {registerCheck, saveUserInfo} from "../axios/axios-api";
+
 export default {
   name: "personalInfo",
 
@@ -71,23 +73,46 @@ export default {
       this.job = this.$refs.job.value;
       this.age = this.$refs.age.value;
 
-      if(this.checkAll()){
-        return this.$router.push({
-          name: "camera",
-          query: {
-            name: this.name,
-            address: this.address,
-            age: this.age,
-            job: this.job,
-            sex: this.sex,
 
+      let param = {
+        name : this.name,
+      }
+
+      // check if this name has been used
+      let res = registerCheck(param)
+      res
+        .then(res => {
+          let name_exist = res.result.user_exist
+
+          // if already has this name in our database
+          if(name_exist===true)
+          {
+            this.$message({
+              message: "Please choose another name, this one has been used by others",
+              type: 'error',
+              offset: 300,
+            })
+          }
+
+          // if has filled each cell and the name is available, send to next page
+          if(this.checkEmpty()&& !name_exist){
+            return this.$router.push({
+              name: "camera",
+              query: {
+                name: this.name,
+                address: this.address,
+                age: this.age,
+                job: this.job,
+                sex: this.sex,
+
+                }
+              });
             }
-          });
-        }
+        })
       },
 
-
-    checkAll:function () {
+    // check whether has filled each cell
+    checkEmpty:function () {
 
       if (this.name === "") {
         this.$message({
@@ -97,6 +122,7 @@ export default {
         })
         return false
       }
+
 
       if (this.address === "") {
         this.$message({
@@ -124,10 +150,9 @@ export default {
         })
         return false
       }
+
       return true
-
-    }
-
+    },
 
   }
 }

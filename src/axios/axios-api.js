@@ -9,6 +9,13 @@ export const saveUserInfo = data => {
     data
   });
 };
+export const registerCheck = data => {
+  return axiosService({
+    url: BASE + `/registerCheck/`, // check if the name has been used in our database
+    method: "post",
+    data
+  });
+};
 
 
 
